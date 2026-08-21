@@ -46,6 +46,7 @@ app.MapPost("/create-room",async (HttpContext context) =>
         roomID = GenerateRoomId();
     }
 
+    Console.WriteLine($"[create-room]  房间（{roomID}）被{request.LocalIP}:{request.LocalPort}创建于{request.PublicIP}:{request.PublicPort}");
     return Results.Ok(new {roomID = roomID});
 });
 
@@ -54,6 +55,7 @@ app.MapDelete("/clear-room",(string roomID) =>
     bool removed = rooms.TryRemove(roomID,out _);
     if (removed)
     {
+        Console.WriteLine($"[clear-room]  房间（{roomID}）被清除");
         return Results.Ok(new { message = $"房间 {roomID} 已关闭" });
     }
     return Results.NotFound(new { errer = "房间不存在或已关闭" });
