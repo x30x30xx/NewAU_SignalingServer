@@ -2,6 +2,9 @@ using System.Collections.Concurrent;
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 var app = builder.Build();
 
 var rooms = new ConcurrentDictionary<string,(string AddressJson, DateTime CreatedAt)>();
